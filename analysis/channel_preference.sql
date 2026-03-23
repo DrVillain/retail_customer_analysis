@@ -9,7 +9,5 @@ SELECT
     COUNT(interaction_id) AS total_interactions,
     CAST(COUNT(interaction_id) * 100.0 / SUM(COUNT(interaction_id)) 
         OVER() AS DECIMAL(10,2)) AS percentage
-FROM dbo.cleaned_interactions
-WHERE channel IS NOT NULL
 GROUP BY channel
 ORDER BY total_interactions DESC;
