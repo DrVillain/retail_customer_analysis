@@ -32,3 +32,4 @@ WITH cleaned_interactions AS
 SELECT *
 INTO cleaned_interactions
 FROM cleaned_interactions
+WHERE channel IS NOT NULL
