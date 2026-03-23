@@ -23,7 +23,6 @@ engagement_metrics AS (
         COUNT(DISTINCT interaction_type) AS unique_interaction_types,
         COUNT(DISTINCT channel) AS unique_channels
     FROM dbo.cleaned_interactions
-    WHERE channel IS NOT NULL
     GROUP BY customer_id
 ),
 engagement_scored AS (
