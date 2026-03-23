@@ -20,7 +20,6 @@ WITH engagement_metrics AS (
     FROM dbo.cleaned_interactions AS i
     JOIN dbo.cleaned_customers AS c 
         ON i.customer_id = c.customer_id
-    WHERE i.channel IS NOT NULL
     GROUP BY i.customer_id, c.full_name
 ),
 normalized AS (
