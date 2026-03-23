@@ -38,7 +38,7 @@ WITH cleaned_customers AS(
 
 		-- validating the zip code
 		CASE
-			WHEN REPLACE(zip_code, '''', '') LIKE '[0-9][0-9][0-9][0-9][0-9]' THEN zip_code
+			WHEN REPLACE(zip_code, '''', '') LIKE '[0-9][0-9][0-9][0-9][0-9]' THEN CAST(zip_code AS VARCHAR(10))
 			ELSE NULL
 		END AS zip_code,
 
