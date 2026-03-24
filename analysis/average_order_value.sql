@@ -6,7 +6,7 @@
 SELECT
     t.customer_id,
     c.full_name,
-    CAST(AVG(t.price * t.quantity) AS DECIMAL(10,2)) AS avg_order_value
+     CAST(AVG(t.price * t.quantity * (1 - t.discount_applied / 100.0)) AS DECIMAL(10,2)) AS avg_order_value
 FROM dbo.cleaned_transactions AS t
 JOIN dbo.cleaned_customers AS c 
     ON t.customer_id = c.customer_id
