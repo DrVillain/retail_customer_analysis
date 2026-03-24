@@ -8,9 +8,9 @@ WITH transaction_metrics AS (
     -- calculating spent metrics per customer from the transactions table
     SELECT
         customer_id,
-        CAST(SUM(price * quantity) AS DECIMAL(10,2)) AS total_spent,
+        CAST(SUM(price * quantity * (1 - discount_applied / 100.0)) AS DECIMAL(10,2)) AS total_spent,
         COUNT(transaction_id) AS purchase_frequency,
-        CAST(AVG(price * quantity) AS DECIMAL(10,2)) AS avg_order_value
+        CAST(AVG(price * quantity * (1 - discount_applied / 100.0)) AS DECIMAL(10,2)) AS avg_order_value
     FROM dbo.cleaned_transactions
     GROUP BY customer_id
 ),
@@ -23,6 +23,7 @@ engagement_metrics AS (
         COUNT(DISTINCT interaction_type) AS unique_interaction_types,
         COUNT(DISTINCT channel) AS unique_channels
     FROM dbo.cleaned_interactions
+    WHERE channel IS NOT NULL
     GROUP BY customer_id
 ),
 engagement_scored AS (
