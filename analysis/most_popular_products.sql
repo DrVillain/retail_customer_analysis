@@ -6,14 +6,13 @@
 SELECT
     product_category,
     product_name,
-    CAST(SUM(quantity * price) AS DECIMAL(10,2)) AS product_revenue,
+    CAST(SUM(quantity * price * (1 - discount_applied/100.0)) AS DECIMAL(10,2)) AS product_revenue,
     SUM(quantity) AS product_units_sold,
     COUNT(transaction_id) AS product_transactions
 
 FROM dbo.cleaned_transactions
 GROUP BY product_category, product_name
 ORDER BY 
-    CASE 
-        WHEN product_category IS NULL THEN 1 ELSE 0 END,
-    product_category,
-    product_revenue DESC;
+    CASE WHEN product_category IS NULL THEN 1 ELSE 0 END,
+    product_revenue DESC,
+    product_category;
