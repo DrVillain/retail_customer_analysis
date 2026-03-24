@@ -17,7 +17,7 @@ WITH rfm_base AS
         -- total number of transactions
         COUNT(t.transaction_id) AS frequency,
         -- total spent
-        CAST(SUM(t.price * t.quantity) AS DECIMAL(10,2)) AS monetary
+        CAST(SUM(t.price * t.quantity * (1 - t.discount_applied / 100.0)) AS DECIMAL(10,2)) AS monetary
     FROM dbo.cleaned_transactions AS t
     JOIN dbo.cleaned_customers AS c 
         ON t.customer_id = c.customer_id
